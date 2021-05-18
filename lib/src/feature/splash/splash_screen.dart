@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memri_example/src/config/color_config.dart';
 import 'package:memri_example/src/feature/splash/bloc/splash_bloc.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:memri_example/src/router/router.gr.dart';
 
 class SplashScreen extends StatelessWidget {
   @override
@@ -9,8 +11,12 @@ class SplashScreen extends StatelessWidget {
     return BlocListener<SplashBloc, SplashState>(
       listenWhen: (prev, curr) => prev != curr,
       listener: (context, state) {
+        Future.delayed(Duration(seconds: 2), () {});
         if (state is UserAuthenticated) {
-        } else if (state is UserNotAuthenticated) {}
+          context.router.replace(HomePage());
+        } else if (state is UserNotAuthenticated) {
+          context.router.replace(LoginPage());
+        }
       },
       child: Scaffold(
         backgroundColor: Styleguide.colorAccentsOrange_1,

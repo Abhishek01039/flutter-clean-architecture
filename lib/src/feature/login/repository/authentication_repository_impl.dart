@@ -24,40 +24,7 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
       {required String email, required String password}) async {
     try {
       final UserCredential userCredential = await _firebaseAuth
-          .signInWithEmailAndPassword(email: email, password: password);
-
-      return userCredential;
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        throw Exception(Message.noUserFound);
-      } else if (e.code == 'wrong-password') {
-        throw Exception(Message.wrongPassword);
-      } else if (e.code == 'too-many-requests') {
-        throw Exception(Message.tryManyAttemps);
-      }
-    } catch (e) {
-      throw Exception(Message.genericErrorMessage);
-    }
-  }
-
-  @override
-  Future<void> logOut() async {
-    try {
-      await _firebaseAuth.signOut();
-    } catch (error) {
-      throw Exception(Message.genericErrorMessage);
-    }
-  }
-
-  @override
-  Future<UserCredential?> signIn(
-      {required String email, required String password}) async {
-    try {
-      final UserCredential userCredential =
-          await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       return userCredential;
     } on FirebaseAuthException catch (e) {
@@ -67,6 +34,16 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
         throw Exception(Message.alreadyExist);
       }
     } catch (e) {
+     
+      throw Exception(Message.genericErrorMessage);
+    }
+  }
+
+  @override
+  Future<void> logOut() async {
+    try {
+      await _firebaseAuth.signOut();
+    } catch (error) {
       throw Exception(Message.genericErrorMessage);
     }
   }

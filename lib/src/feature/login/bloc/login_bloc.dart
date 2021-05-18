@@ -33,9 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         }
 
         yield LoginSuccessState(
-          username: session.user?.displayName,
           email: session.user?.email,
-          status: true,
         );
       } catch (e) {
         yield LoginErrorState(errorMessage: e.toString());

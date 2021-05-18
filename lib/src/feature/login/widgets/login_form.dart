@@ -3,11 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memri_example/src/feature/home/home_screen.dart';
 import 'package:memri_example/src/feature/login/bloc/login_bloc.dart';
+import 'package:memri_example/src/router/router.gr.dart';
+import 'package:memri_example/src/utils/message_text.dart';
 import 'package:memri_example/src/utils/validators/email_validator.dart';
 import 'package:memri_example/src/widgets/button.dart';
 import 'package:memri_example/src/widgets/circular_indicator.dart';
 import 'package:memri_example/src/widgets/snackbar_widget.dart';
 import 'login_auth_text_form_field.dart';
+import 'package:auto_route/auto_route.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -54,16 +57,16 @@ class _LoginFormState extends State<LoginForm> {
             if (state.email != null) {
               _resetState();
 
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => HomeScreen(),
-                ),
-              );
+              context.router.replace(HomePage());
 
               showSnackbar(
                 context: context,
                 text: 'Login successful!',
+              );
+            } else {
+              showSnackbar(
+                context: context,
+                text: Message.genericLoginErrorMessage,
               );
             }
           }
@@ -127,8 +130,8 @@ class _LoginFormState extends State<LoginForm> {
                   Stack(
                     children: [
                       Button(
-                        elevatedButtonKey: const Key('sign_in'),
-                        child: 'SIGN IN',
+                        elevatedButtonKey: const Key('login'),
+                        child: 'LOGIN',
                         function: (state is LoginLoadingState)
                             ? null
                             : () {

@@ -4,20 +4,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memri_example/src/feature/splash/bloc/splash_bloc.dart';
 
 import 'config/theme_config.dart';
-import 'feature/splash/splash_screen.dart';
+import 'router/router.gr.dart';
 
 class MyApp extends StatelessWidget {
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<SplashBloc>(
-          create: (context) => SplashBloc()..add(SplashInitialEvent()),
-        ),
-      ],
-      child: MaterialApp(
+    return BlocProvider<SplashBloc>(
+      create: (context) => SplashBloc(),
+      child: MaterialApp.router(
         theme: ThemeConfig.lightTheme,
-        home: SplashScreen(),
+        routerDelegate: _appRouter.delegate(),
+        routeInformationParser: _appRouter.defaultRouteParser(),
       ),
     );
   }
