@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1072005691648-8o7e7lk7ahfkf7rdk7be2k15d0rqq054.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1072005691648-8o7e7lk7ahfkf7rdk7be2k15d0rqq054</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1072005691648-n36up0qe5b5sgqafarv97ho2rvns6ble.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBWyMuqAI5tEB4QI9G7QCZj72q0D7sSvv8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1072005691648</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.memriExample</string>
+	<key>PROJECT_ID</key>
+	<string>digi-card-6641d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>digi-card-6641d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1072005691648:ios:56778983f3cee414d1dbe5</string>
+</dict>
+</plist>

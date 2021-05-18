@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1072005691648",
+    "project_id": "digi-card-6641d",
+    "storage_bucket": "digi-card-6641d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072005691648:android:958c968441fc6eb3d1dbe5",
+        "android_client_info": {
+          "package_name": "com.example.memri_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1072005691648-n36up0qe5b5sgqafarv97ho2rvns6ble.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.memri_example",
+            "certificate_hash": "7445df0ae4ac9dd220500105d507a6be920970f2"
+          }
+        },
+        {
+          "client_id": "1072005691648-t6pu30nbaqbob0jvu19f3vnpl4md14ju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTw4ux8VjIr-3E8RSsuE6Is8fIIHTM5bI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1072005691648-t6pu30nbaqbob0jvu19f3vnpl4md14ju.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
