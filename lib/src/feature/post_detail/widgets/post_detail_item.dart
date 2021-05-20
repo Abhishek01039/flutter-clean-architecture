@@ -29,15 +29,18 @@ class PostDetailItem extends StatelessWidget {
             style: Theme.of(context).textTheme.headline3,
           ),
           _buildSizedBox(),
-          Text(
-            'Tags:',
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          _buildSizedBox(),
-          PostDetailTags(
-            tags: post.tags,
-          ),
-          _buildSizedBox(),
+          // Render `tags` if it is not null.
+          if (post.tags?.isEmpty == true)
+            Text(
+              'Tags:',
+              style: Theme.of(context).textTheme.headline5,
+            ),
+          if (post.tags?.isEmpty == true) _buildSizedBox(),
+          if (post.tags?.isEmpty == true)
+            PostDetailTags(
+              tags: post.tags,
+            ),
+          if (post.tags?.isEmpty == true) _buildSizedBox(),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -59,6 +62,7 @@ class PostDetailItem extends StatelessWidget {
               ),
             ],
           ),
+          // Render `link` and `owner` if it is not null.
           _buildSizedBox(height: 20),
           if (post.link != null)
             GestureDetector(

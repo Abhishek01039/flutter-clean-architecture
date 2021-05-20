@@ -85,6 +85,8 @@ class _PostDetailPage extends StatelessWidget {
           ),
         ),
       ),
+      // FloatingActionButton for mark this post as read.
+      // It's clickable one time only!
       floatingActionButton: FloatingActionButton(
         backgroundColor: scaffoldColor != null
             ? Styleguide.colorGray_3

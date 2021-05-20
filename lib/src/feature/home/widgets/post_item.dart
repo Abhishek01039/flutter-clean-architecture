@@ -37,6 +37,7 @@ class PostItem extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Shows the title. if title text are big then it's goes to next line.
                         Flexible(
                           child: Text(
                             post.text ?? '',

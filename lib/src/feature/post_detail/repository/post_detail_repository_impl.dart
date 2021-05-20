@@ -26,6 +26,7 @@ class PostDetailRepositoryImpl implements PostDetailRepository {
           'app-id': APIKey.apiKey,
         },
       );
+      // If status code is not 200 then it thows an error.
       if (response.statusCode == 200) {
         final Post posts =
             Post.fromJson(jsonDecode(response.body) as Map<String, dynamic>);

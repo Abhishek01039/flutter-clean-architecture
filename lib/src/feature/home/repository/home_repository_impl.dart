@@ -26,6 +26,7 @@ class HomeRepositoryImpl implements HomeRepository {
           'app-id': APIKey.apiKey,
         },
       );
+      // If status code is not 200 then it thows an error.
       if (response.statusCode == 200) {
         final List<Post> posts = jsonDecode(response.body)['data']
             .map<Post>((e) => Post.fromJson(e as Map<String, dynamic>))
