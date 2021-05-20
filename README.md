@@ -1,4 +1,4 @@
-# memri_example
+# flutter_example
 
 A new Flutter project.
 
