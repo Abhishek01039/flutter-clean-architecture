@@ -8,39 +8,42 @@ class Post {
   String? link;
   int? likes;
 
-  Post(
-      {this.owner,
-      this.id,
-      this.image,
-      this.publishDate,
-      this.text,
-      this.tags,
-      this.link,
-      this.likes});
+  Post({
+    this.owner,
+    this.id,
+    this.image,
+    this.publishDate,
+    this.text,
+    this.tags,
+    this.link,
+    this.likes,
+  });
 
   Post.fromJson(Map<String, dynamic> json) {
-    owner = json['owner'] != null ? new Owner.fromJson(json['owner']) : null;
-    id = json['id'];
-    image = json['image'];
-    publishDate = json['publishDate'];
-    text = json['text'];
-    tags = json['tags'].cast<String>();
-    link = json['link'];
-    likes = json['likes'];
+    owner = json['owner'] != null
+        ? Owner.fromJson(json['owner'] as Map<String, dynamic>)
+        : null;
+    id = json['id'] as String;
+    image = json['image'] as String;
+    publishDate = json['publishDate'] as String;
+    text = json['text'] as String;
+    tags = json['tags'].cast<String>() as List<String>;
+    link = json['link'] as String;
+    likes = json['likes'] as int;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.owner != null) {
-      data['owner'] = this.owner?.toJson();
+    final Map<String, dynamic> data = {};
+    if (owner != null) {
+      data['owner'] = owner?.toJson();
     }
-    data['id'] = this.id;
-    data['image'] = this.image;
-    data['publishDate'] = this.publishDate;
-    data['text'] = this.text;
-    data['tags'] = this.tags;
-    data['link'] = this.link;
-    data['likes'] = this.likes;
+    data['id'] = id;
+    data['image'] = image;
+    data['publishDate'] = publishDate;
+    data['text'] = text;
+    data['tags'] = tags;
+    data['link'] = link;
+    data['likes'] = likes;
     return data;
   }
 }
@@ -53,31 +56,32 @@ class Owner {
   String? title;
   String? email;
 
-  Owner(
-      {this.id,
-      this.firstName,
-      this.lastName,
-      this.picture,
-      this.title,
-      this.email});
+  Owner({
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.picture,
+    this.title,
+    this.email,
+  });
 
   Owner.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    firstName = json['firstName'];
-    lastName = json['lastName'];
-    picture = json['picture'];
-    title = json['title'];
-    email = json['email'];
+    id = json['id'] as String;
+    firstName = json['firstName'] as String;
+    lastName = json['lastName'] as String;
+    picture = json['picture'] as String;
+    title = json['title'] as String;
+    email = json['email'] as String;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['firstName'] = this.firstName;
-    data['lastName'] = this.lastName;
-    data['picture'] = this.picture;
-    data['title'] = this.title;
-    data['email'] = this.email;
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
+    data['picture'] = picture;
+    data['title'] = title;
+    data['email'] = email;
     return data;
   }
 }

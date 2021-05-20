@@ -15,13 +15,13 @@ class HomeScreen extends StatelessWidget {
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state is PostLoading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (state is PostFetchedSuccess) {
               return CustomScrollView(
                 slivers: [
-                  SliverAppBar(
+                  const SliverAppBar(
                     forceElevated: true,
                     elevation: 6,
                     backgroundColor: Styleguide.colorAccentsOrange_1,
@@ -30,10 +30,12 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                   SliverToBoxAdapter(
+                    // Render lists lazily if we use ListView.builder().
+                    // ListView.builder() constructor creates items as they’re scrolled onto the screen.
                     child: ListView.builder(
                       padding: EdgeInsets.zero,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return PostItem(
                           post: state.posts[index],
@@ -45,8 +47,13 @@ class HomeScreen extends StatelessWidget {
                 ],
               );
             }
-            return Center(
-              child: Text('Retry'),
+            // If some error occur this portion will be rendered. So we press the button
+            // then it's call the API again.
+            return TextButton(
+              onPressed: () {
+                context.read<HomeBloc>().add(PostFetch());
+              },
+              child: const Text('Retry'),
             );
           },
         ),

@@ -5,7 +5,7 @@ import 'package:memri_example/src/utils/message_text.dart';
 
 import 'authentication_repository.dart';
 
-class AuthenticationRepositoryImpl extends AuthenticationRepository {
+class AuthenticationRepositoryImpl implements AuthenticationRepository {
   late FirebaseAuth _firebaseAuth;
 
   static final AuthenticationRepositoryImpl _singleton =
@@ -34,7 +34,6 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository {
         throw Exception(Message.alreadyExist);
       }
     } catch (e) {
-     
       throw Exception(Message.genericErrorMessage);
     }
   }

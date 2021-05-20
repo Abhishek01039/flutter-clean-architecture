@@ -9,13 +9,12 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
-      listenWhen: (prev, curr) => prev != curr,
+      listenWhen: (SplashState prev, SplashState curr) => prev != curr,
       listener: (context, state) {
-        Future.delayed(Duration(seconds: 2), () {});
         if (state is UserAuthenticated) {
-          context.router.replace(HomePage());
+          context.router.replace(const HomePage());
         } else if (state is UserNotAuthenticated) {
-          context.router.replace(LoginPage());
+          context.router.replace(const LoginPage());
         }
       },
       child: Scaffold(
@@ -23,9 +22,8 @@ class SplashScreen extends StatelessWidget {
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FlutterLogo(
+              const FlutterLogo(
                 size: 150,
               ),
               const SizedBox(

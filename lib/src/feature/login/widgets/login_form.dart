@@ -1,16 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:memri_example/src/feature/home/home_screen.dart';
 import 'package:memri_example/src/feature/login/bloc/login_bloc.dart';
+import 'package:memri_example/src/feature/widgets/button.dart';
+import 'package:memri_example/src/feature/widgets/circular_indicator.dart';
+import 'package:memri_example/src/feature/widgets/snackbar_widget.dart';
 import 'package:memri_example/src/router/router.gr.dart';
 import 'package:memri_example/src/utils/message_text.dart';
 import 'package:memri_example/src/utils/validators/email_validator.dart';
-import 'package:memri_example/src/widgets/button.dart';
-import 'package:memri_example/src/widgets/circular_indicator.dart';
-import 'package:memri_example/src/widgets/snackbar_widget.dart';
+
 import 'login_auth_text_form_field.dart';
-import 'package:auto_route/auto_route.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -22,7 +22,6 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController email = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  bool isRememberMe = false;
   bool isAutovalidate = false;
 
   /// clear all [TextFormField]
@@ -35,7 +34,6 @@ class _LoginFormState extends State<LoginForm> {
   void _resetState() {
     _disposeController();
     isAutovalidate = false;
-    isRememberMe = false;
     setState(() {});
   }
 
@@ -57,8 +55,7 @@ class _LoginFormState extends State<LoginForm> {
             if (state.email != null) {
               _resetState();
 
-              context.router.replace(HomePage());
-
+              context.router.replace(const HomePage());
               showSnackbar(
                 context: context,
                 text: 'Login successful!',

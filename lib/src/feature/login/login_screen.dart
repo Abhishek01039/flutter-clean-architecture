@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:memri_example/src/config/color_config.dart';
 import 'package:memri_example/src/feature/login/repository/authentication_repository_impl.dart';
 import 'package:memri_example/src/feature/login/widgets/login_form.dart';
+import 'package:memri_example/src/feature/widgets/snackbar_widget.dart';
 import 'package:memri_example/src/router/router.gr.dart';
-import 'package:memri_example/src/widgets/snackbar_widget.dart';
 import 'package:auto_route/auto_route.dart';
 import 'bloc/login_bloc.dart';
 
@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
       create: (context) =>
           LoginBloc(authenticationRepository: AuthenticationRepositoryImpl()),
       child: BlocListener<LoginBloc, LoginState>(
-        listenWhen: (prev, curr) => prev != curr,
+        listenWhen: (LoginState prev, LoginState curr) => prev != curr,
         listener: (context, state) {
           if (state is LoginErrorState) {
             showSnackbar(
