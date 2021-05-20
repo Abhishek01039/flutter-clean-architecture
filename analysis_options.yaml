@@ -1,1 +1,17 @@
 include: package:lint/analysis_options.yaml
+
+linter:
+  rules:
+    # Util classes are awesome!
+    avoid_classes_with_only_static_members: false
+    sort_pub_dependencies: false
+    prefer_single_quotes: true
+    constant_identifier_names: false
+    prefer_initializing_formals: false
+    unnecessary_this: false
+    prefer_generic_function_type_aliases: false
+    implementation_imports: false
+
+analyzer:
+  errors:
+    unused_import: error
