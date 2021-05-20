@@ -23,13 +23,13 @@ class Post {
     owner = json['owner'] != null
         ? Owner.fromJson(json['owner'] as Map<String, dynamic>)
         : null;
-    id = json['id'] as String;
-    image = json['image'] as String;
-    publishDate = json['publishDate'] as String;
-    text = json['text'] as String;
-    tags = json['tags'].cast<String>() as List<String>;
-    link = json['link'] as String;
-    likes = json['likes'] as int;
+    id = json['id'] as String?;
+    image = json['image'] as String?;
+    publishDate = json['publishDate'] as String?;
+    text = json['text'] as String?;
+    tags = json['tags'].cast<String>() as List<String>?;
+    link = json['link'] as String?;
+    likes = json['likes'] as int?;
   }
 
   Map<String, dynamic> toJson() {
@@ -66,12 +66,12 @@ class Owner {
   });
 
   Owner.fromJson(Map<String, dynamic> json) {
-    id = json['id'] as String;
-    firstName = json['firstName'] as String;
-    lastName = json['lastName'] as String;
-    picture = json['picture'] as String;
-    title = json['title'] as String;
-    email = json['email'] as String;
+    id = json['id'] as String?;
+    firstName = json['firstName'] as String?;
+    lastName = json['lastName'] as String?;
+    picture = json['picture'] as String?;
+    title = json['title'] as String?;
+    email = json['email'] as String?;
   }
 
   Map<String, dynamic> toJson() {

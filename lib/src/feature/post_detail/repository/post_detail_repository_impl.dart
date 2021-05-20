@@ -7,6 +7,15 @@ import 'package:memri_example/src/model/post.dart';
 import 'post_detail_repository.dart';
 
 class PostDetailRepositoryImpl implements PostDetailRepository {
+  static final PostDetailRepositoryImpl _postDetailRepositoryImpl =
+      PostDetailRepositoryImpl._internal();
+
+  factory PostDetailRepositoryImpl() {
+    return _postDetailRepositoryImpl;
+  }
+
+  PostDetailRepositoryImpl._internal();
+
   @override
   Future<Post> getPostsById(String id) async {
     try {

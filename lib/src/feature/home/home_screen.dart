@@ -4,6 +4,7 @@ import 'package:memri_example/src/config/color_config.dart';
 import 'package:memri_example/src/feature/home/bloc/home_bloc.dart';
 import 'package:memri_example/src/feature/home/repository/home_repository_impl.dart';
 
+import 'widgets/home_logout_button.dart';
 import 'widgets/post_item.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,13 +22,16 @@ class HomeScreen extends StatelessWidget {
             } else if (state is PostFetchedSuccess) {
               return CustomScrollView(
                 slivers: [
-                  const SliverAppBar(
+                  SliverAppBar(
                     forceElevated: true,
                     elevation: 6,
                     backgroundColor: Styleguide.colorAccentsOrange_1,
-                    title: Text(
+                    title: const Text(
                       'Posts',
                     ),
+                    actions: [
+                      HomeLogoutButton(),
+                    ],
                   ),
                   SliverToBoxAdapter(
                     // Render lists lazily if we use ListView.builder().
@@ -49,11 +53,13 @@ class HomeScreen extends StatelessWidget {
             }
             // If some error occur this portion will be rendered. So we press the button
             // then it's call the API again.
-            return TextButton(
-              onPressed: () {
-                context.read<HomeBloc>().add(PostFetch());
-              },
-              child: const Text('Retry'),
+            return Center(
+              child: TextButton(
+                onPressed: () {
+                  context.read<HomeBloc>().add(PostFetch());
+                },
+                child: const Text('Retry'),
+              ),
             );
           },
         ),

@@ -12,4 +12,5 @@ class Message {
   static const userExist = 'User exists with different credential';
   static const previousLoginOperation =
       'You have a previous login operation in progress';
+  static const logoutSuccess = 'Logout successful!';
 }

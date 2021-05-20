@@ -30,11 +30,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         if (session == null) {
           // if session is null then thows an error.
           throw Exception(Message.genericLoginErrorMessage);
+        } else {
+          yield LoginSuccessState(
+            email: session.user?.email,
+          );
         }
-
-        yield LoginSuccessState(
-          email: session.user?.email,
-        );
       } catch (e) {
         yield LoginErrorState(errorMessage: e.toString());
       }

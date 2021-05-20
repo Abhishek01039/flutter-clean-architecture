@@ -39,123 +39,120 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
-      builder: (context, state) => BlocConsumer<LoginBloc, LoginState>(
-        listenWhen: (LoginState prev, LoginState curr) => prev != curr,
-        listener: (context, state) {
-          if (state is LoginErrorState) {
+    return BlocConsumer<LoginBloc, LoginState>(
+      listenWhen: (LoginState prev, LoginState curr) => prev != curr,
+      listener: (context, state) {
+        if (state is LoginErrorState) {
+          showSnackbar(
+            context: context,
+            text: state.errorMessage.contains(':')
+                ? (state.errorMessage.split(':')[1]).toString().trim()
+                : state.errorMessage,
+          );
+        }
+        if (state is LoginSuccessState) {
+          if (state.email != null) {
+            _resetState();
             showSnackbar(
               context: context,
-              text: state.errorMessage.contains(':')
-                  ? (state.errorMessage.split(':')[1]).toString().trim()
-                  : state.errorMessage,
+              text: 'Login successful!',
+            );
+
+            context.router.replace(const HomePage());
+          } else {
+            showSnackbar(
+              context: context,
+              text: Message.genericLoginErrorMessage,
             );
           }
-          if (state is LoginSuccessState) {
-            if (state.email != null) {
-              _resetState();
-
-              context.router.replace(const HomePage());
-              showSnackbar(
-                context: context,
-                text: 'Login successful!',
-              );
-            } else {
-              showSnackbar(
-                context: context,
-                text: Message.genericLoginErrorMessage,
-              );
-            }
-          }
-        },
-        buildWhen: (LoginState prev, LoginState curr) => prev != curr,
-        builder: (context, state) {
-          return Form(
-            key: _formKey,
-            autovalidateMode: isAutovalidate
-                ? AutovalidateMode.always
-                : AutovalidateMode.disabled,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
+        }
+      },
+      buildWhen: (LoginState prev, LoginState curr) => prev != curr,
+      builder: (context, state) {
+        return Form(
+          key: _formKey,
+          autovalidateMode: isAutovalidate
+              ? AutovalidateMode.always
+              : AutovalidateMode.disabled,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                CustomAuthTextFormField(
+                  key: const Key('email_input'),
+                  textEditingController: email,
+                  textInputType: TextInputType.emailAddress,
+                  labelText: 'Email',
+                  validate: emailValidator,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                if (state is LoginPassShowState)
                   CustomAuthTextFormField(
-                    key: const Key('email_input'),
-                    textEditingController: email,
-                    textInputType: TextInputType.emailAddress,
-                    labelText: 'Email',
-                    validate: emailValidator,
+                    key: const Key('password_input'),
+                    textEditingController: password,
+                    labelText: 'Password',
+                    suffixIcon: const Icon(Icons.visibility_off),
+                    suffixIconPressed: () {
+                      context.read<LoginBloc>().add(LoginPassHideRequested());
+                    },
+                    validate: (String? val) {
+                      if (val!.isEmpty) {
+                        return 'Please enter password';
+                      } else if (val.length < 6) {
+                        return 'Password must be 6 character';
+                      }
+                    },
+                  )
+                else
+                  CustomAuthTextFormField(
+                    key: const Key('password_input'),
+                    textEditingController: password,
+                    labelText: 'Password',
+                    isObsecure: true,
+                    suffixIcon: const Icon(Icons.visibility),
+                    suffixIconPressed: () {
+                      context.read<LoginBloc>().add(LoginPassShowRequested());
+                    },
+                    validate: (String? val) {
+                      if (val!.isEmpty) {
+                        return 'Please enter password';
+                      } else if (val.length < 6) {
+                        return 'Password must be 6 character';
+                      }
+                    },
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  if (state is LoginPassShowState)
-                    CustomAuthTextFormField(
-                      key: const Key('password_input'),
-                      textEditingController: password,
-                      labelText: 'Password',
-                      suffixIcon: const Icon(Icons.visibility_off),
-                      suffixIconPressed: () {
-                        context.read<LoginBloc>().add(LoginPassHideRequested());
-                      },
-                      validate: (String? val) {
-                        if (val!.isEmpty) {
-                          return 'Please enter password';
-                        } else if (val.length < 6) {
-                          return 'Password must be 6 character';
-                        }
-                      },
-                    )
-                  else
-                    CustomAuthTextFormField(
-                      key: const Key('password_input'),
-                      textEditingController: password,
-                      labelText: 'Password',
-                      isObsecure: true,
-                      suffixIcon: const Icon(Icons.visibility),
-                      suffixIconPressed: () {
-                        context.read<LoginBloc>().add(LoginPassShowRequested());
-                      },
-                      validate: (String? val) {
-                        if (val!.isEmpty) {
-                          return 'Please enter password';
-                        } else if (val.length < 6) {
-                          return 'Password must be 6 character';
-                        }
-                      },
+                Stack(
+                  children: [
+                    Button(
+                      elevatedButtonKey: const Key('login'),
+                      child: 'LOGIN',
+                      function: (state is LoginLoadingState)
+                          ? null
+                          : () {
+                              if (_formKey.currentState?.validate() == false) {
+                                setState(() {
+                                  isAutovalidate = true;
+                                });
+                              } else {
+                                context.read<LoginBloc>().add(
+                                      LoginRequest(
+                                        email: email.text,
+                                        password: password.text,
+                                      ),
+                                    );
+                              }
+                            },
                     ),
-                  Stack(
-                    children: [
-                      Button(
-                        elevatedButtonKey: const Key('login'),
-                        child: 'LOGIN',
-                        function: (state is LoginLoadingState)
-                            ? null
-                            : () {
-                                if (_formKey.currentState?.validate() ==
-                                    false) {
-                                  setState(() {
-                                    isAutovalidate = true;
-                                  });
-                                } else {
-                                  context.read<LoginBloc>().add(
-                                        LoginRequest(
-                                          email: email.text,
-                                          password: password.text,
-                                        ),
-                                      );
-                                }
-                              },
-                      ),
-                      if (state is LoginLoadingState) customCircularIndicator(),
-                    ],
-                  ),
-                ],
-              ),
+                    if (state is LoginLoadingState) customCircularIndicator(),
+                  ],
+                ),
+              ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

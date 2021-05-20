@@ -7,6 +7,15 @@ import 'package:memri_example/src/model/post.dart';
 import 'home_repository.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
+  static final HomeRepositoryImpl _homeRepositoryImpl =
+      HomeRepositoryImpl._internal();
+
+  factory HomeRepositoryImpl() {
+    return _homeRepositoryImpl;
+  }
+
+  HomeRepositoryImpl._internal();
+
   @override
   Future<List<Post>> getPosts() async {
     try {
