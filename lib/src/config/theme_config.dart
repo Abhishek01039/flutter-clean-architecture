@@ -33,12 +33,8 @@ class ThemeConfig {
     final textTheme = _createTextTheme(baseTextTheme, colorScheme);
     return ThemeData(
       brightness: colorScheme.brightness,
-      backgroundColor: colorScheme.background,
-      colorScheme: colorScheme,
       primaryColor: colorScheme.primary,
-      accentColor: colorScheme.secondary,
       disabledColor: onBackground50,
-      toggleableActiveColor: colorScheme.primary,
       tabBarTheme: TabBarTheme(
         indicator: UnderlineTabIndicator(
           borderSide: BorderSide(
@@ -76,7 +72,6 @@ class ThemeConfig {
         margin: EdgeInsets.zero,
       ),
       appBarTheme: AppBarTheme(
-        brightness: colorScheme.brightness,
         color: colorScheme.background,
       ),
       iconTheme: const IconThemeData(
@@ -94,73 +89,120 @@ class ThemeConfig {
         showSelectedLabels: true,
         showUnselectedLabels: true,
         selectedLabelStyle:
-            textTheme.caption?.copyWith(fontWeight: FontWeight.w700),
+            textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
         unselectedLabelStyle:
-            textTheme.caption?.copyWith(fontWeight: FontWeight.w300),
+            textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w300),
         type: BottomNavigationBarType.fixed,
       ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return colorScheme.primary;
+          }
+          return null;
+        }),
+      ),
+      radioTheme: RadioThemeData(
+        fillColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return colorScheme.primary;
+          }
+          return null;
+        }),
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return colorScheme.primary;
+          }
+          return null;
+        }),
+        trackColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return null;
+          }
+          if (states.contains(MaterialState.selected)) {
+            return colorScheme.primary;
+          }
+          return null;
+        }),
+      ),
+      colorScheme: colorScheme.copyWith(background: colorScheme.background),
     );
   }
 
   static TextTheme _createTextTheme(
       TextTheme baseTextTheme, ColorScheme colorScheme) {
     return TextTheme(
-      headline1: baseTextTheme.headline1?.copyWith(
+      displayLarge: baseTextTheme.displayLarge?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 28,
       ),
-      headline2: baseTextTheme.headline2?.copyWith(
+      displayMedium: baseTextTheme.displayMedium?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 24,
       ),
-      headline3: baseTextTheme.headline3?.copyWith(
+      displaySmall: baseTextTheme.displaySmall?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 20,
       ),
-      headline4: baseTextTheme.headline4?.copyWith(
+      headlineMedium: baseTextTheme.headlineMedium?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 18,
         fontWeight: FontWeight.w400,
       ),
-      headline5: baseTextTheme.headline5?.copyWith(
+      headlineSmall: baseTextTheme.headlineSmall?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 16,
       ),
-      headline6: baseTextTheme.headline6?.copyWith(
+      titleLarge: baseTextTheme.titleLarge?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 14,
       ),
-      bodyText1: baseTextTheme.bodyText1?.copyWith(
+      bodyLarge: baseTextTheme.bodyLarge?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 12,
         fontWeight: FontWeight.w700,
       ),
-      bodyText2: baseTextTheme.bodyText2?.copyWith(
+      bodyMedium: baseTextTheme.bodyMedium?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 12,
         fontWeight: FontWeight.w400,
       ),
-      button: baseTextTheme.button?.copyWith(
+      labelLarge: baseTextTheme.labelLarge?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 12,
         fontWeight: FontWeight.w700,
       ),
-      caption: baseTextTheme.caption?.copyWith(
+      bodySmall: baseTextTheme.bodySmall?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 11,
         fontWeight: FontWeight.w400,
       ),
-      overline: baseTextTheme.overline?.copyWith(
+      labelSmall: baseTextTheme.labelSmall?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 11,
         fontWeight: FontWeight.w400,
       ),
-      subtitle1: baseTextTheme.subtitle1?.copyWith(
+      titleMedium: baseTextTheme.titleMedium?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 16,
         fontWeight: FontWeight.w400,
       ),
-      subtitle2: baseTextTheme.subtitle2?.copyWith(
+      titleSmall: baseTextTheme.titleSmall?.copyWith(
         color: colorScheme.onBackground,
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -176,10 +218,8 @@ class ThemeConfig {
           surface: Styleguide.colorGray_0,
           onSurface: Styleguide.colorGray_9,
           primary: Styleguide.colorAccentsOrange_1,
-          primaryVariant: Styleguide.colorGreen_5,
           onPrimary: Styleguide.colorGray_0,
           secondary: Styleguide.colorAccentsYellow_2,
-          secondaryVariant: Styleguide.colorAccentsYellow_3,
           onSecondary: Styleguide.colorGray_9,
           error: Styleguide.colorAccentsRed,
           onError: Styleguide.colorGray_0,
@@ -194,10 +234,8 @@ class ThemeConfig {
           surface: Styleguide.colorGray_8,
           onSurface: Styleguide.colorGray_0,
           primary: Styleguide.colorAccentsOrange_1,
-          primaryVariant: Styleguide.colorGreen_3,
           onPrimary: Styleguide.colorGray_0,
           secondary: Styleguide.colorAccentsYellow_1,
-          secondaryVariant: Styleguide.colorAccentsYellow_2,
           onSecondary: Styleguide.colorGray_9,
           error: Styleguide.colorAccentsRed,
           onError: Styleguide.colorGray_0,

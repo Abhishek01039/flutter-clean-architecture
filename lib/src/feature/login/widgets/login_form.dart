@@ -22,7 +22,7 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController email = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  bool isAutovalidate = false;
+  bool isAutoValidate = false;
 
   /// clear all [TextFormField]
   void _disposeController() {
@@ -33,20 +33,20 @@ class _LoginFormState extends State<LoginForm> {
   /// reset the state of [LoginForm]
   void _resetState() {
     _disposeController();
-    isAutovalidate = false;
+    isAutoValidate = false;
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginBloc, LoginState>(
-      listenWhen: (LoginState prev, LoginState curr) => prev != curr,
+      listenWhen: (LoginState prev, LoginState current) => prev != current,
       listener: (context, state) {
         if (state is LoginErrorState) {
           showSnackbar(
             context: context,
             text: state.errorMessage.contains(':')
-                ? (state.errorMessage.split(':')[1]).toString().trim()
+                ? state.errorMessage.split(':')[1].toString().trim()
                 : state.errorMessage,
           );
         }
@@ -71,7 +71,7 @@ class _LoginFormState extends State<LoginForm> {
       builder: (context, state) {
         return Form(
           key: _formKey,
-          autovalidateMode: isAutovalidate
+          autovalidateMode: isAutoValidate
               ? AutovalidateMode.always
               : AutovalidateMode.disabled,
           child: Padding(
@@ -103,6 +103,7 @@ class _LoginFormState extends State<LoginForm> {
                       } else if (val.length < 6) {
                         return 'Password must be 6 character';
                       }
+                      return null;
                     },
                   )
                 else
@@ -121,6 +122,7 @@ class _LoginFormState extends State<LoginForm> {
                       } else if (val.length < 6) {
                         return 'Password must be 6 character';
                       }
+                      return null;
                     },
                   ),
                 Stack(
@@ -133,7 +135,7 @@ class _LoginFormState extends State<LoginForm> {
                           : () {
                               if (_formKey.currentState?.validate() == false) {
                                 setState(() {
-                                  isAutovalidate = true;
+                                  isAutoValidate = true;
                                 });
                               } else {
                                 context.read<LoginBloc>().add(
