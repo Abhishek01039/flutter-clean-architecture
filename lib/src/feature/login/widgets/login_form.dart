@@ -34,6 +34,7 @@ class _LoginFormState extends State<LoginForm> {
   void _resetState() {
     _disposeController();
     isAutoValidate = false;
+    print(isAutoValidate);
     setState(() {});
   }
 
